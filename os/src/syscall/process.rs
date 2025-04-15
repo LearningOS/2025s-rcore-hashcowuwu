@@ -1,5 +1,5 @@
 //! Process management syscalls
-use core::{ptr};
+// use core::{ptr};
 
 use crate::{
     task::{exit_current_and_run_next, suspend_current_and_run_next},
