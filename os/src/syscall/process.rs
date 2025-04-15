@@ -1,4 +1,6 @@
 //! Process management syscalls
+use core::{ptr};
+
 use crate::{
     task::{exit_current_and_run_next, suspend_current_and_run_next},
     timer::get_time_us,
@@ -41,5 +43,13 @@ pub fn sys_get_time(ts: *mut TimeVal, _tz: usize) -> isize {
 // TODO: implement the syscall
 pub fn sys_trace(_trace_request: usize, _id: usize, _data: usize) -> isize {
     trace!("kernel: sys_trace");
-    -1
+    match _trace_request  {
+        0 =>  unsafe {
+            let address: *const  isize = _id as *const isize;
+            ptr::read(address)
+        }
+        // 1 => _; 
+        _ => -1
+        //其他情况返回-1        
+    }
 }
